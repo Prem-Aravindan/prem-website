@@ -5,7 +5,6 @@ import Skills from './components/Skills'
 import Projects from './components/Projects'
 import Publications from './components/Publications'
 import Contact from './components/Contact'
-import Footer from './components/Footer'
 import { DottedSurface } from './components/ui/dotted-surface'
 import { GlassFilter } from './components/ui/liquid-glass'
 
