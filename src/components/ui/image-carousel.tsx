@@ -157,7 +157,7 @@ export function ImageCarousel({
           <button
             onClick={(e) => { e.stopPropagation(); goToPrev(); }}
             className={cn(
-              "absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transition-all opacity-0 group-hover:opacity-100",
+              "absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transition-all opacity-100",
               isExpanded ? "bg-black hover:bg-black/80" : "bg-black/50 hover:bg-black/70"
             )}
             aria-label="Previous image"
@@ -173,7 +173,7 @@ export function ImageCarousel({
           <button
             onClick={(e) => { e.stopPropagation(); goToNext(); }}
             className={cn(
-              "absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transition-all opacity-0 group-hover:opacity-100",
+              "absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full transition-all opacity-100",
               isExpanded ? "bg-black hover:bg-black/80" : "bg-black/50 hover:bg-black/70"
             )}
             aria-label="Next image"
@@ -191,7 +191,7 @@ export function ImageCarousel({
             "absolute top-2 right-2 z-10 p-2 rounded-full transition-all",
             isExpanded 
               ? "bg-black hover:bg-black/80 opacity-100" 
-              : "bg-black/50 hover:bg-black/70 opacity-0 group-hover:opacity-100"
+              : "bg-black/50 hover:bg-black/70 opacity-100"
           )}
           aria-label={isExpanded ? "Close view" : "Expand image"}
         >
