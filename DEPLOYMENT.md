@@ -1,130 +1,198 @@
-# GitHub Pages Deployment Guide
+# GitHub Pages Deployment Guide (Docs Folder Method)
 
-This repository is configured for automatic deployment to GitHub Pages.
+This repository uses the **docs folder method** for GitHub Pages deployment - the simplest and most straightforward approach.
 
-## ✅ Pre-Deployment Checklist
+## ✅ Setup Status
 
-- [x] Vite configured with GitHub Pages base path
-- [x] GitHub Actions workflow set up for automatic builds
-- [x] Build outputs optimized for production
-- [x] All dependencies installed and locked
+- [x] Built project output committed to `docs/` folder
+- [x] GitHub Pages configured to use `docs/` folder
+- [x] All production files optimized and ready
+- [x] Build script included for easy updates
 
-## 🚀 Deployment Steps
+## 🚀 How It Works
 
-### 1. Repository Setup (One-time)
+Instead of using GitHub Actions or relying on branch builds, the production-ready files are committed directly to a `docs/` folder in the repository. GitHub Pages automatically serves these static files.
 
-1. **Go to your repository settings:**
+**Structure:**
+```
+prem-website/
+  ├── docs/                    ← GitHub Pages serves from here
+  │   ├── index.html
+  │   ├── assets/
+  │   │   ├── index-xxx.js
+  │   │   ├── index-xxx.css
+  │   │   └── ...
+  │   └── vite.svg
+  ├── src/                     ← Source code
+  ├── public/
+  ├── package.json
+  └── ...
+```
+
+## 📋 Repository Setup (One-time)
+
+1. **Go to repository Settings:**
    - Navigate to `Settings` → `Pages`
+   
+2. **Configure GitHub Pages:**
    - Under "Build and deployment"
-   - Select **Deploy from a branch** or **GitHub Actions**
+   - Select **"Deploy from a branch"** (not Actions)
    - Choose branch: **main**
+   - Choose folder: **docs** (or /docs)
+   - Click "Save"
 
-2. **Enable GitHub Pages:**
-   - Ensure the repository is public (or upgrade to GitHub Pro for private repos with Pages)
+3. **Wait for deployment:**
+   - GitHub will deploy automatically
+   - Your site will be live at: `https://Prem-Aravindan.github.io/prem-website/`
 
-### 2. Push to Main Branch
+## 🔄 Deploying Updates
 
-Once configured, simply push to `main` branch:
+### Method 1: Using the Build Script (Recommended)
 
 ```bash
-git add .
-git commit -m "Update portfolio"
+# Run the build and deploy script
+bash build-and-deploy.sh
+
+# Then commit and push
+git add docs
+git commit -m "Deploy updated site"
 git push origin main
 ```
 
-### 3. Automatic Deployment
+### Method 2: Manual Build
 
-The GitHub Actions workflow will:
-1. Detect the push to `main`
-2. Install dependencies (`npm ci`)
-3. Build the project (`npm run build`)
-4. Deploy to GitHub Pages
+```bash
+# Build the project
+npm run build
 
-### 4. Access Your Site
+# Copy dist to docs
+cp -r dist/* docs/
 
-Your site will be available at:
+# Commit and push
+git add docs
+git commit -m "Deploy: update site"
+git push origin main
 ```
-https://Prem-Aravindan.github.io/prem-website/
+
+### Method 3: PowerShell (Windows)
+
+```powershell
+# Build the project
+npm run build
+
+# Copy dist to docs
+Copy-Item -Path .\dist\* -Destination .\docs -Recurse -Force
+
+# Commit and push
+git add docs
+git commit -m "Deploy: update site"
+git push origin main
 ```
+
+## 📊 Workflow Summary
+
+1. Make changes to source code (`src/` folder)
+2. Run `npm run build` (or use the script above)
+3. Verify `docs/` folder is updated with latest build
+4. Commit changes: `git add docs && git commit -m "Deploy: description"`
+5. Push to GitHub: `git push origin main`
+6. GitHub automatically serves the files from `docs/` folder
+7. Site updates at: `https://Prem-Aravindan.github.io/prem-website/`
+
+## ✨ Benefits of Docs Folder Method
+
+✅ **Simple** - No complex CI/CD setup needed
+✅ **Reliable** - Direct file serving, no build surprises
+✅ **Fast** - Files deployed instantly
+✅ **Control** - You decide exactly what gets deployed
+✅ **Backup** - Build artifacts versioned in git
 
 ## 🔧 Custom Domain Setup (Optional)
 
-If you want to use a custom domain:
-
-### Option 1: Using CNAME Record
+If you want to use your own domain:
 
 1. In repository **Settings** → **Pages**
-2. Under "Custom domain", enter your domain (e.g., `prem-portfolio.com`)
+2. Under "Custom domain", enter your domain
 3. Add DNS records to your domain provider:
-   - Type: `CNAME`
-   - Name: `www` (or subdomain)
-   - Value: `Prem-Aravindan.github.io`
 
-4. Point root domain to GitHub Pages:
-   - Type: `A` records pointing to GitHub's IPs:
-     - `185.199.108.153`
-     - `185.199.109.153`
-     - `185.199.110.153`
-     - `185.199.111.153`
+**For root domain** (example.com):
+- Type: `A` records pointing to:
+  - `185.199.108.153`
+  - `185.199.109.153`
+  - `185.199.110.153`
+  - `185.199.111.153`
 
-5. Enable "Enforce HTTPS" in Settings → Pages
-
-### Option 2: Subdomain (Recommended)
-
-If using `prem.yourdomain.com`:
+**For subdomain** (prem.example.com):
 - Type: `CNAME`
 - Name: `prem`
 - Value: `Prem-Aravindan.github.io`
 
-## 📊 Monitor Deployments
+4. Enable "Enforce HTTPS" in Settings → Pages
 
-1. Go to your repository
-2. Click **Actions** tab
-3. See deployment status and logs
-4. Check for any build errors
+## 🐛 Troubleshooting
 
-## 🔄 Manual Build & Preview
+### Site shows old content
+- Clear browser cache (Ctrl+Shift+Delete / Cmd+Shift+Delete)
+- GitHub Pages can take a few seconds to refresh
+- Check that `docs/` folder has the latest files
 
-To test locally before pushing:
-
+### Build fails locally
 ```bash
-# Install dependencies
-npm install
-
-# Build for production
-npm run build
-
-# Preview the production build
-npm run preview
+npm install        # Make sure dependencies are installed
+npm run build      # Check for errors in output
+npm run preview    # Preview the build locally
 ```
 
-## 📁 Build Output
+### Site is blank or 404
+- Verify `docs/index.html` exists
+- Check GitHub Pages settings point to `docs` folder
+- Check browser console for errors (F12)
 
-The production build is output to the `dist/` directory, which is automatically deployed by GitHub Actions.
+### Changes not deploying
+- Verify files are in `docs/` folder
+- Check commit includes `docs/` changes
+- Push was successful (`git push origin main`)
 
-## 🛠️ Troubleshooting
+## 📁 Ignoring dist Folder
 
-### Build Fails
-- Check the Actions tab for error messages
-- Ensure all dependencies are correct in `package.json`
-- Run `npm run build` locally to debug
+The `.gitignore` is configured to ignore the `dist/` folder:
+```
+dist
+```
 
-### Site Shows Blank Page
-- Verify the base path in `vite.config.ts` is correct
-- Clear browser cache
-- Check browser console for errors
+This means:
+- `dist/` is created locally but not committed
+- Only `docs/` is committed (the deployed version)
+- Keeps repository lean while maintaining backup of built files
 
-### Custom Domain Not Working
-- DNS changes can take 24-48 hours to propagate
-- Verify CNAME record is correctly set
-- In Settings → Pages, ensure custom domain is verified
+## 📝 Build Output Information
 
-## 📝 Additional Resources
+After running `npm run build`:
 
-- [GitHub Pages Documentation](https://docs.github.com/en/pages)
-- [Vite Deployment Guide](https://vitejs.dev/guide/static-deploy.html)
-- [GitHub Actions Documentation](https://docs.github.com/en/actions)
+```
+dist/
+├── index.html (2.3 KB)
+├── assets/
+│   ├── index-B9_Wi6k2.js (3.6 MB minified)
+│   ├── index-DmOrQges.css (56 KB)
+│   ├── [project images] (various sizes)
+│   └── vite.svg
+```
+
+All files are minified and optimized for production.
+
+## 🔄 Staying Updated
+
+When you need to update the site:
+
+1. Make changes to the source code
+2. Test locally with `npm run preview`
+3. Run build script (or manual build commands)
+4. Push to GitHub
+5. Done! Site updates automatically
 
 ---
 
-**Status:** ✅ Ready for GitHub Pages deployment
+**Status:** ✅ Ready for GitHub Pages deployment via docs folder
+**Last Updated:** December 7, 2025
+
