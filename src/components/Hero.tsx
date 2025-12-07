@@ -1,47 +1,71 @@
+import { GlassButton } from './ui/liquid-glass';
+import { ChevronDownIcon } from './ui/icons';
+import Lanyard from './Lanyard';
+
 export default function Hero() {
+  const scrollToSection = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
-    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500 text-white px-4">
-      <div className="max-w-4xl mx-auto text-center">
-        <div className="animate-fade-in-up">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-gradient bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent">
-            Prem Aravindan
-          </h1>
-          <p className="text-xl md:text-2xl mb-4 text-gray-100">
-            Full Stack Developer & Creative Technologist
-          </p>
-          <p className="text-lg md:text-xl mb-8 text-gray-200 max-w-2xl mx-auto">
-            Crafting beautiful digital experiences with modern web technologies and innovative design
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <a 
-              href="#projects" 
-              className="px-8 py-3 bg-white text-purple-600 rounded-full font-semibold hover:scale-105 transition-transform duration-300 shadow-lg hover:shadow-xl"
-            >
-              View My Work
-            </a>
-            <a 
-              href="#contact" 
-              className="px-8 py-3 bg-transparent border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-all duration-300"
-            >
-              Get In Touch
-            </a>
-          </div>
+    <section id="hero" className="min-h-screen flex flex-col lg:flex-row items-center justify-center text-white px-4 sm:px-6 relative pt-16 sm:pt-20">
+      {/* Lanyard Container - Desktop: Full screen overlay positioned to the right */}
+      <div className="absolute inset-0 z-0 pointer-events-none hidden lg:block">
+        <div className="w-full h-full pointer-events-auto">
+           <Lanyard position={[-3, 0, 15]} gravity={[0, -40, 0]} fov={20} />
         </div>
       </div>
-      
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <svg 
-          className="w-6 h-6 text-white" 
-          fill="none" 
-          strokeLinecap="round" 
-          strokeLinejoin="round" 
-          strokeWidth="2" 
-          viewBox="0 0 24 24" 
-          stroke="currentColor"
-        >
-          <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
+
+      {/* Mobile/Tablet Lanyard - Full hero section overlay for drag room, camera positioned high */}
+      <div className="absolute inset-0 pointer-events-none lg:hidden">
+        <div className="w-full h-full pointer-events-auto">
+          <Lanyard position={[0, -3, 30]} gravity={[0, -40, 0]} fov={24} />
+        </div>
+      </div>
+
+      {/* Spacer for mobile/tablet lanyard - positions content below lanyard */}
+      <div className="h-[48vh] xs:h-[47vh] sm:h-[46vh] md:h-[44vh] w-full lg:hidden" />
+
+      <div className="w-full px-4 sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto flex gap-8 relative z-10 pointer-events-none">
+        {/* Left side - Content (full width on mobile/tablet, 60% on desktop) */}
+        <div className="w-full lg:w-3/5 flex flex-col justify-center pointer-events-auto">
+          <div className="animate-fade-in-up text-center lg:text-left">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4 text-white">
+              Prem Aravindan Jeyakumar
+            </h1>
+            <p className="text-base sm:text-lg md:text-xl mb-2 sm:mb-3 text-gray-300">
+              Developer & Healthcare Technology Innovator
+            </p>
+            <p className="text-sm md:text-base mb-6 sm:mb-8 text-gray-400 max-w-xl mx-auto lg:mx-0">
+              Dedicated to advancing healthcare technology and product development through innovative engineering solutions
+            </p>
+            <div className="flex gap-3 flex-wrap justify-center lg:justify-start">
+              <div onClick={(e) => scrollToSection(e, '#projects')}>
+                <GlassButton className="text-sm">
+                  <span className="text-white">View My Work</span>
+                </GlassButton>
+              </div>
+              <div onClick={(e) => scrollToSection(e, '#contact')}>
+                <GlassButton className="text-sm">
+                  <span className="text-white">Get In Touch</span>
+                </GlassButton>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right side - Spacer (40%) - only on desktop */}
+        <div className="w-2/5 hidden lg:block"></div>
+      </div>
+
+      {/* Scroll indicator - visible on mobile/tablet */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce lg:hidden">
+        <ChevronDownIcon className="w-5 h-5 text-white/60" />
       </div>
     </section>
   );

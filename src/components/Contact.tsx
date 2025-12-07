@@ -1,52 +1,156 @@
+import { motion } from 'framer-motion';
+import { MailIcon, LinkedInIcon, InstagramIcon } from './ui/icons';
+
+const contactLinks = [
+  {
+    icon: MailIcon,
+    title: "Email",
+    value: "premaravindanj@gmail.com",
+    display: "premaravindanj@gmail.com",
+    href: "mailto:premaravindanj@gmail.com",
+    external: false
+  },
+  {
+    icon: LinkedInIcon,
+    title: "LinkedIn",
+    value: "prem-aravindan",
+    display: "/in/prem-aravindan",
+    href: "https://linkedin.com/in/prem-aravindan",
+    external: true
+  },
+  {
+    icon: InstagramIcon,
+    title: "Instagram",
+    value: "@prem_jpa",
+    display: "@prem_jpa",
+    href: "https://instagram.com/prem_jpa",
+    external: true
+  }
+];
+
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 px-4 bg-gradient-to-br from-purple-600 via-indigo-600 to-blue-600 text-white">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-12">
-          Get In Touch
-        </h2>
-        <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 shadow-2xl">
-          <p className="text-xl text-center mb-8 text-gray-100">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
+    <section id="contact" className="py-12 sm:py-16 md:py-20 px-4">
+      <div className="w-full px-2 sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
+        {/* Section Title */}
+        <motion.div 
+          className="text-center mb-8 sm:mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
+            Get In Touch
+          </h2>
+          <div className="w-16 sm:w-20 h-1 bg-gradient-to-r from-white/0 via-white/60 to-white/0 mx-auto rounded-full mb-4" />
+          <p className="text-xs sm:text-sm md:text-base text-gray-400 max-w-lg mx-auto px-2">
+            Open to discussing new projects, research collaborations, or opportunities in healthcare technology.
           </p>
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <a 
-              href="mailto:contact@prem-portfolio.com"
-              className="flex flex-col items-center p-6 bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 hover:scale-105"
+        </motion.div>
+
+        {/* Contact Cards */}
+        <motion.div 
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {contactLinks.map((link, idx) => (
+            <motion.a
+              key={idx}
+              href={link.href}
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
+              className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/10 p-4 sm:p-6 hover:border-white/30 transition-all duration-500"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 + idx * 0.1 }}
+              whileHover={{ scale: 1.02, y: -4 }}
             >
-              <svg className="w-12 h-12 mb-3" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-              </svg>
-              <h3 className="font-semibold text-lg">Email</h3>
-              <p className="text-sm text-gray-200">contact@prem-portfolio.com</p>
-            </a>
-            <a 
-              href="https://github.com/Prem-Aravindan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center p-6 bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 hover:scale-105"
+              {/* Animated gradient background on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-500/0 group-hover:from-blue-500/10 group-hover:to-purple-500/10 transition-all duration-500" />
+              
+              {/* Glow effect */}
+              <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-white/5 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              
+              <div className="relative flex flex-col items-center text-center">
+                {/* Icon with animated ring */}
+                <div className="relative mb-3 sm:mb-4">
+                  <div className="absolute inset-0 rounded-full bg-white/10 scale-150 opacity-0 group-hover:opacity-100 group-hover:scale-100 transition-all duration-500" />
+                  <div className="relative w-12 sm:w-14 h-12 sm:h-14 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-white/30 transition-colors duration-300">
+                    <link.icon className="w-5 sm:w-6 h-5 sm:h-6 text-white/70 group-hover:text-white transition-colors duration-300" />
+                  </div>
+                </div>
+                
+                <h3 className="text-xs sm:text-sm font-semibold text-white mb-1">{link.title}</h3>
+                <p className="text-[10px] sm:text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-300 break-all">
+                  {link.display}
+                </p>
+                
+                {/* Arrow indicator */}
+                <motion.div 
+                  className="mt-2 sm:mt-3 text-white/40 group-hover:text-white/80 transition-colors duration-300"
+                  initial={{ x: 0 }}
+                  whileHover={{ x: 5 }}
+                >
+                  <svg className="w-3.5 sm:w-4 h-3.5 sm:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </motion.div>
+              </div>
+            </motion.a>
+          ))}
+        </motion.div>
+
+        {/* CTA Section */}
+        <motion.div 
+          className="relative overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-r from-white/5 via-white/10 to-white/5 border border-white/10 p-5 sm:p-8 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          {/* Animated gradient orbs */}
+          <div className="absolute top-0 left-1/4 w-32 sm:w-64 h-32 sm:h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-0 right-1/4 w-32 sm:w-64 h-32 sm:h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          
+          <div className="relative">
+            <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-white mb-2 sm:mb-3">
+              Let's Build Something Amazing
+            </h3>
+            <p className="text-xs sm:text-sm text-gray-400 max-w-md mx-auto mb-4 sm:mb-6 px-2">
+              Whether you have a project in mind or just want to chat about healthcare innovation, I'd love to hear from you.
+            </p>
+            <motion.a
+              href="mailto:premaravindanj@gmail.com"
+              className="inline-flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white/10 border border-white/20 text-white text-xs sm:text-sm font-medium hover:bg-white/20 hover:border-white/40 transition-all duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <svg className="w-12 h-12 mb-3" fill="currentColor" viewBox="0 0 24 24">
-                <path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" />
-              </svg>
-              <h3 className="font-semibold text-lg">GitHub</h3>
-              <p className="text-sm text-gray-200">@Prem-Aravindan</p>
-            </a>
-            <a 
-              href="https://linkedin.com/in/prem-aravindan"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center p-6 bg-white/10 rounded-xl hover:bg-white/20 transition-all duration-300 hover:scale-105"
-            >
-              <svg className="w-12 h-12 mb-3" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-              <h3 className="font-semibold text-lg">LinkedIn</h3>
-              <p className="text-sm text-gray-200">@prem-aravindan</p>
-            </a>
+              <MailIcon className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+              Send a Message
+            </motion.a>
           </div>
-        </div>
+        </motion.div>
+
+        {/* Footer */}
+        <motion.div 
+          className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-white/10 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+        >
+          <p className="text-[10px] sm:text-xs text-gray-500">
+            © {new Date().getFullYear()} Prem Aravindan Jeyakumar. All rights reserved.
+          </p>
+          <p className="text-[10px] sm:text-xs text-gray-600 mt-1">
+            Built with React, TypeScript, Tailwind CSS & Vite
+          </p>
+        </motion.div>
       </div>
     </section>
   );
