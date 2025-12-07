@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unknown-property */
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
 import { useTexture, Environment, Lightformer, RoundedBox } from '@react-three/drei';
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
@@ -13,6 +13,25 @@ import * as THREE from 'three';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
+// Loading placeholder component
+function LanyardLoader() {
+  return (
+    <div className="absolute inset-0 flex flex-col items-center justify-center">
+      {/* Animated lanyard placeholder */}
+      <div className="relative">
+        {/* String */}
+        <div className="w-0.5 h-24 bg-gradient-to-b from-gray-600 to-gray-500 mx-auto animate-pulse" />
+        {/* Clip */}
+        <div className="w-4 h-2 bg-gray-500 rounded-full mx-auto -mt-0.5 animate-pulse" />
+        {/* Card */}
+        <div className="w-20 h-28 bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg mt-1 mx-auto border border-gray-700 animate-pulse flex items-center justify-center">
+          <div className="w-12 h-12 bg-gray-700 rounded-full animate-pulse" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 interface LanyardProps {
   position?: [number, number, number];
   gravity?: [number, number, number];
@@ -22,6 +41,7 @@ interface LanyardProps {
 
 export default function Lanyard({ position = [0, 0, 20], gravity = [0, -40, 0], fov = 20, transparent = true }: LanyardProps) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -31,23 +51,26 @@ export default function Lanyard({ position = [0, 0, 20], gravity = [0, -40, 0], 
 
   return (
     <div className="relative z-0 w-full h-full flex justify-center items-center touch-none">
+      {/* Show loader until canvas is ready */}
+      {!isLoaded && <LanyardLoader />}
       <Canvas
         camera={{ position: position as unknown as THREE.Vector3, fov: fov }}
         dpr={[1, isMobile ? 1.5 : 2]}
         gl={{ alpha: transparent }}
         onCreated={({ gl, camera }) => {
           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1);
-          // If position is shifted, we want to look straight ahead, not at 0,0,0
-          // So we look at (position.x, position.y, 0)
           camera.lookAt(position[0], position[1], 0);
+          // Mark as loaded after a brief delay for physics to initialize
+          setTimeout(() => setIsLoaded(true), 500);
         }}
         style={{ touchAction: 'none' }}
       >
-        <ambientLight intensity={1.5} />
-        <Physics gravity={gravity as [number, number, number]} timeStep={isMobile ? 1 / 30 : 1 / 60}>
-          <Band isMobile={isMobile} />
-        </Physics>
-        <Environment blur={0.75}>
+        <Suspense fallback={null}>
+          <ambientLight intensity={1.5} />
+          <Physics gravity={gravity as [number, number, number]} timeStep={isMobile ? 1 / 30 : 1 / 60}>
+            <Band isMobile={isMobile} />
+          </Physics>
+          <Environment blur={0.75}>
           <Lightformer
             intensity={1.5}
             color="white"
@@ -77,6 +100,7 @@ export default function Lanyard({ position = [0, 0, 20], gravity = [0, -40, 0], 
             scale={[100, 10, 1]}
           />
         </Environment>
+        </Suspense>
       </Canvas>
     </div>
   );
