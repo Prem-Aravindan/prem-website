@@ -18,6 +18,10 @@ import masterthesis3 from '@/assets/masterthesis3.png';
 import bachelorthesis1 from '@/assets/bachelorthesis1.png';
 import bachelorthesis2 from '@/assets/bachelorthesis2.png';
 import bachelorthesis3 from '@/assets/bachelorthesis3.png';
+import edu1 from '@/assets/edu1.jpg';
+import work1 from '@/assets/work1.png';
+import edu2 from '@/assets/edu2.png';
+import work2 from '@/assets/work2.png';
 import ppg1 from '@/assets/ppg1.png';
 import ppg2 from '@/assets/ppg2.png';
 import ppg3 from '@/assets/ppg3.png';
@@ -148,15 +152,15 @@ export default function Projects() {
       <div className="w-full px-2 sm:w-[90%] md:w-[80%] lg:w-[70%] mx-auto">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">
-            Featured Projects
+            Experience
           </h2>
           <p className="text-gray-400 text-xs sm:text-sm max-w-lg mx-auto px-2">
             A selection of my work spanning healthcare technology, medical devices, and software development.
           </p>
         </div>
 
-        <ContainerScroll className="min-h-[250vh] py-8 sm:py-12">
-          {/* Ongoing Project - Special Card */}
+        <ContainerScroll className="min-h-[300vh] py-8 sm:py-12 space-y-8 sm:space-y-10">
+          {/* Education & Experience - Special Card (first) */}
           <CardSticky
             index={0}
             className={cn(
@@ -172,6 +176,100 @@ export default function Projects() {
               <div className={cn(
                 "p-4 sm:p-6 md:p-8 w-full md:w-1/2 flex flex-col justify-between relative z-10 bg-black/20 transition-opacity duration-300",
                 expandedId === 0 ? "opacity-0 pointer-events-none" : "opacity-100"
+              )}>
+                <div>
+                  <div className="flex items-center justify-between mb-3 sm:mb-4 flex-wrap gap-2">
+                    <div className="flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-white/5 border border-white/10">
+                      <AcademicCapIcon className="w-3 h-3 text-white/70" />
+                      <span className="text-[10px] sm:text-xs font-medium text-white/70">Education & Experience</span>
+                    </div>
+                  </div>
+
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3 text-white">
+                    Education & Work Experience
+                  </h3>
+
+                  <div className="space-y-3 sm:space-y-4">
+                   
+                    <div className="flex items-start gap-2">
+                      <BriefcaseIcon className="w-4 h-4 text-white/60 mt-0.5" />
+                      <div>
+                        <p className="text-white text-xs sm:text-sm font-semibold">Lead Full Stack Developer</p>
+                        <p className="text-gray-300 text-[11px] sm:text-xs">Mindspeller BV</p>
+                        <p className="text-gray-400 text-[10px] sm:text-xs">Mar 2024– Present • Leuven, Belgium</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <AcademicCapIcon className="w-4 h-4 text-white/60 mt-0.5" />
+                      <div>
+                        <p className="text-white text-xs sm:text-sm font-semibold">M.S., Biomedical Engineering</p>
+                        <p className="text-gray-300 text-[11px] sm:text-xs">KU Leuven</p>
+                        <p className="text-gray-400 text-[10px] sm:text-xs">Sep 2021– Sep 2024 • Leuven, Belgium</p>
+                      </div>
+                    </div>
+                    
+                     <div className="flex items-start gap-2">
+                      <BriefcaseIcon className="w-4 h-4 text-white/60 mt-0.5" />
+                      <div>
+                        <p className="text-white text-xs sm:text-sm font-semibold">Project Associate</p>
+                        <p className="text-gray-300 text-[11px] sm:text-xs">Verena Haptics & VR Systems Pvt. Ltd.</p>
+                        <p className="text-gray-400 text-[10px] sm:text-xs">Jun 2020– Jul 2021 • Chennai, India</p>
+                      </div>
+                    </div>
+                     <div className="flex items-start gap-2">
+                      <AcademicCapIcon className="w-4 h-4 text-white/60 mt-0.5" />
+                      <div>
+                        <p className="text-white text-xs sm:text-sm font-semibold">B.E., Biomedical Engineering</p>
+                        <p className="text-gray-300 text-[11px] sm:text-xs">SNU</p>
+                        <p className="text-gray-400 text-[10px] sm:text-xs">Jun 2016– Jun 2020 • Chennai, India</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Image Side */}
+              <div className={cn(
+                "relative overflow-hidden group transition-all duration-500 ease-in-out",
+                expandedId === 0 ? "absolute inset-0 w-full h-full z-20" : "w-full md:w-1/2 h-40 sm:h-48 md:h-auto"
+              )}>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 md:hidden" />
+                <ImageCarousel 
+                  images={[work2, edu2, work1, edu1]} 
+                  alt="Education & Work Experience"
+                  className="w-full h-full"
+                  interval={3500}
+                  isExpanded={expandedId === 0}
+                  onToggleExpand={() => setExpandedId(expandedId === 0 ? null : 0)}
+                />
+                {/* Indicator */}
+                <div className={cn(
+                  "absolute bottom-3 sm:bottom-4 right-3 sm:right-4 z-20 bg-black/60 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/10 flex items-center gap-1.5 sm:gap-2 transition-opacity duration-300",
+                  expandedId === 0 ? "opacity-0 pointer-events-none" : "opacity-100"
+                )}>
+                  <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-blue-500 animate-pulse" />
+                  <span className="text-[10px] sm:text-xs font-medium text-white/90">Timeline</span>
+                </div>
+              </div>
+            </div>
+          </CardSticky>
+
+          {/* Ongoing Project - Special Card (second) */}
+          <CardSticky
+            index={1}
+            className={cn(
+              "w-full overflow-hidden rounded-xl sm:rounded-2xl border-2 border-white/30 bg-black/40 backdrop-blur-md shadow-xl mb-6 sm:mb-8 transition-all duration-500 ease-in-out",
+              expandedId === 1 ? "h-[70vh] z-50" : ""
+            )}
+            style={{ zIndex: expandedId === 1 ? 50 : 1 }}
+            incrementY={40}
+            incrementZ={5}
+          >
+            <div className="flex flex-col md:flex-row h-full relative">
+              {/* Content Side */}
+              <div className={cn(
+                "p-4 sm:p-6 md:p-8 w-full md:w-1/2 flex flex-col justify-between relative z-10 bg-black/20 transition-opacity duration-300",
+                expandedId === 1 ? "opacity-0 pointer-events-none" : "opacity-100"
               )}>
                 <div>
                   <div className="flex items-center justify-between mb-3 sm:mb-4 flex-wrap gap-2">
@@ -231,8 +329,8 @@ export default function Projects() {
                   alt={ongoingProject.title}
                   className="w-full h-full"
                   interval={4000}
-                  isExpanded={expandedId === 0}
-                  onToggleExpand={() => setExpandedId(expandedId === 0 ? null : 0)}
+                  isExpanded={expandedId === 1}
+                  onToggleExpand={() => setExpandedId(expandedId === 1 ? null : 1)}
                 />
                 {/* Prominent indicator for images */}
                 <div className={cn(
@@ -249,17 +347,17 @@ export default function Projects() {
           {/* Regular Projects */}
           {projects.map((project, index) => {
             const TypeIcon = project.typeIcon;
-            const isExpanded = expandedId === index + 1;
+            const isExpanded = expandedId === index + 2; // shifted by 2 due to two special cards
             
             return (
               <CardSticky
                 key={index}
-                index={index + 1}
+                index={index + 2}
                 className={cn(
                   "w-full overflow-hidden rounded-xl sm:rounded-2xl border-2 border-white/30 bg-black/40 backdrop-blur-md shadow-xl transition-all duration-500 ease-in-out",
                   isExpanded ? "h-[70vh] z-50" : ""
                 )}
-                style={{ zIndex: isExpanded ? 50 : index + 1 }}
+                style={{ zIndex: isExpanded ? 50 : index + 2 }}
                 incrementY={40}
                 incrementZ={5}
               >
@@ -328,7 +426,7 @@ export default function Projects() {
                       className="w-full h-full"
                       interval={3000}
                       isExpanded={isExpanded}
-                      onToggleExpand={() => setExpandedId(isExpanded ? null : index + 1)}
+                      onToggleExpand={() => setExpandedId(isExpanded ? null : index + 2)}
                     />
                     {/* Prominent indicator for images */}
                     <div className={cn(
