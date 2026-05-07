@@ -42,8 +42,24 @@ import mindlinkanalyzer3 from '@/assets/mindlinkanalyzer3.png';
 import rag1 from '@/assets/rag1.png';
 import rag2 from '@/assets/rag2.png';
 import rag3 from '@/assets/rag3.png';
+import screener1 from '@/assets/screener1.png';
 
 const ongoingProjects = [
+  {
+    title: "Mindscreener",
+    description: "Developing an academic research system for early Alzheimer's disease detection using multi-channel EEG markers associated with amyloid and tau positivity in the temporal region, measured during 40 Hz visual stimulation.",
+    highlights: [
+      "Investigates EEG-based biomarkers linked to amyloid and tau positivity for early-stage Alzheimer's screening",
+      "Focuses on temporal-region responses under 40 Hz visual stimulation using multi-channel EEG recordings",
+      "Supports research workflows for signal analysis, neurophysiological feature extraction and diagnostic model development",
+    ],
+    technologies: ["Multi-channel EEG", "Alzheimer's Research", "40 Hz Stimulation", "Biomarkers", "Signal Analysis"],
+    type: "Academic Research",
+    typeIcon: AcademicCapIcon,
+    date: "Present",
+    location: "Mindspeller, Belgium",
+    images: [screener1],
+  },
   {
     title: "MindLink Analyzer",
     description: "Built a professional BCI application for recording, monitoring and analyzing EEG signals, with real-time brain activity views, standardized cognitive tasks, personalized baselines and report generation.",
@@ -277,6 +293,7 @@ function CommitHeatmap({
   const weeks = buildHeatmapDays(aggregate.dailyCommits, activity);
   const maxCount = Math.max(...aggregate.dailyCommits.map((day) => day.count), 1);
   const accentText = theme === 'sky' ? 'text-sky-300' : 'text-emerald-300';
+  const isCompact = platform === 'GitHub';
 
   return (
     <div className="mb-10 sm:mb-14 rounded-xl border border-white/15 bg-black/35 backdrop-blur-md overflow-hidden">
@@ -307,7 +324,10 @@ function CommitHeatmap({
 
       {hasActivity ? (
         <div className="p-4 sm:p-5">
-          <div className="mb-4 grid gap-3 sm:grid-cols-3">
+          <div className={cn(
+            "mb-4 grid gap-3 sm:grid-cols-3",
+            isCompact && "sm:grid-cols-3 lg:mb-3"
+          )}>
             <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
               <p className="text-[10px] uppercase tracking-wider text-gray-500">Authored commits</p>
               <p className="mt-1 text-2xl font-semibold text-white">{aggregate.totalCommits.toLocaleString()}</p>
@@ -322,52 +342,54 @@ function CommitHeatmap({
             </div>
           </div>
 
-          <div className="overflow-x-auto pb-1">
-            <div className="min-w-[720px]">
-              <div className="mb-1 grid grid-flow-col auto-cols-[13px] gap-1 pl-7">
-                {weeks.map((week, index) => (
-                  <span key={`${week[0]?.date}-${index}`} className="h-4 text-[9px] text-gray-500">
-                    {week.find((day) => day.month)?.month}
-                  </span>
-                ))}
-              </div>
-              <div className="flex gap-2">
-                <div className="grid grid-rows-7 gap-1 pt-0.5 text-[9px] text-gray-500">
-                  <span />
-                  <span>Mon</span>
-                  <span />
-                  <span>Wed</span>
-                  <span />
-                  <span>Fri</span>
-                  <span />
-                </div>
-                <div className="grid grid-flow-col auto-cols-[13px] grid-rows-7 gap-1">
-                  {weeks.flat().map((day) => (
-                    <span
-                      key={day.date}
-                      title={`${day.count} commits on ${day.date}`}
-                      className={cn(
-                        'h-3 w-3 rounded-sm border',
-                        day.isInRange ? getCommitLevel(day.count, maxCount, theme) : 'bg-transparent border-transparent'
-                      )}
-                    />
+          <div>
+            <div className="overflow-x-auto pb-1">
+              <div className="min-w-[720px]">
+                <div className="mb-1 grid grid-flow-col auto-cols-[13px] gap-1 pl-7">
+                  {weeks.map((week, index) => (
+                    <span key={`${week[0]?.date}-${index}`} className="h-4 text-[9px] text-gray-500">
+                      {week.find((day) => day.month)?.month}
+                    </span>
                   ))}
+                </div>
+                <div className="flex gap-2">
+                  <div className="grid grid-rows-7 gap-1 pt-0.5 text-[9px] text-gray-500">
+                    <span />
+                    <span>Mon</span>
+                    <span />
+                    <span>Wed</span>
+                    <span />
+                    <span>Fri</span>
+                    <span />
+                  </div>
+                  <div className="grid grid-flow-col auto-cols-[13px] grid-rows-7 gap-1">
+                    {weeks.flat().map((day) => (
+                      <span
+                        key={day.date}
+                        title={`${day.count} commits on ${day.date}`}
+                        className={cn(
+                          'h-3 w-3 rounded-sm border',
+                          day.isInRange ? getCommitLevel(day.count, maxCount, theme) : 'bg-transparent border-transparent'
+                        )}
+                      />
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            {aggregate.topProjects.map((project) => (
-              <span
-                key={project.id}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] text-gray-300"
-              >
-                <GitCommitHorizontal className="h-3 w-3" />
-                <span>{project.name}</span>
-                <span className="text-gray-500">{project.totalCommits.toLocaleString()}</span>
-              </span>
-            ))}
+            <div className="mt-4 flex flex-wrap gap-2">
+              {aggregate.topProjects.map((project) => (
+                <span
+                  key={project.id}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] text-gray-300"
+                >
+                  <GitCommitHorizontal className="h-3 w-3" />
+                  <span>{project.name}</span>
+                  <span className="text-gray-500">{project.totalCommits.toLocaleString()}</span>
+                </span>
+              ))}
+            </div>
           </div>
         </div>
       ) : (

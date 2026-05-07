@@ -1,13 +1,51 @@
 import type { GitLabActivityData } from './gitlabActivityTypes';
 
 export const githubActivity = {
-  "generatedAt": "2026-05-07T22:40:31.156Z",
+  "generatedAt": "2026-05-07T23:10:48.781Z",
   "since": "2025-06-14",
-  "until": "2026-05-07T22:40:31.156Z",
+  "until": "2026-05-07T23:10:48.781Z",
   "source": "https://github.com",
   "authorFilter": "Prem-Aravindan",
   "refs": "default branch",
   "projects": [
+    {
+      "id": 1111053162,
+      "name": "prem-website",
+      "pathWithNamespace": "Prem-Aravindan/prem-website",
+      "webUrl": "https://github.com/Prem-Aravindan/prem-website",
+      "lastActivityAt": "2026-05-07T23:05:52Z",
+      "totalCommits": 17,
+      "activeDays": 3,
+      "dailyCommits": [
+        {
+          "date": "2025-12-06",
+          "count": 2
+        },
+        {
+          "date": "2025-12-07",
+          "count": 14
+        },
+        {
+          "date": "2026-05-07",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "id": 1232412241,
+      "name": "beginner-local-rag-system",
+      "pathWithNamespace": "Prem-Aravindan/beginner-local-rag-system",
+      "webUrl": "https://github.com/Prem-Aravindan/beginner-local-rag-system",
+      "lastActivityAt": "2026-05-07T23:00:52Z",
+      "totalCommits": 2,
+      "activeDays": 1,
+      "dailyCommits": [
+        {
+          "date": "2026-05-07",
+          "count": 2
+        }
+      ]
+    },
     {
       "id": 1179008196,
       "name": "local-voice-agent",
@@ -62,25 +100,6 @@ export const githubActivity = {
         {
           "date": "2026-03-08",
           "count": 1
-        }
-      ]
-    },
-    {
-      "id": 1111053162,
-      "name": "prem-website",
-      "pathWithNamespace": "Prem-Aravindan/prem-website",
-      "webUrl": "https://github.com/Prem-Aravindan/prem-website",
-      "lastActivityAt": "2025-12-07T14:44:37Z",
-      "totalCommits": 16,
-      "activeDays": 2,
-      "dailyCommits": [
-        {
-          "date": "2025-12-06",
-          "count": 2
-        },
-        {
-          "date": "2025-12-07",
-          "count": 14
         }
       ]
     },
