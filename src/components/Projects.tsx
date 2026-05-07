@@ -3,6 +3,10 @@ import { cn } from '@/lib/utils';
 import { ContainerScroll, CardSticky } from './ui/cards-stack';
 import { ImageCarousel } from './ui/image-carousel';
 import { CalendarIcon, MapPinIcon, BriefcaseIcon, AcademicCapIcon, BeakerIcon } from './ui/icons';
+import { Activity, GitCommitHorizontal } from 'lucide-react';
+import { gitlabActivity } from '@/data/gitlabActivity';
+import { githubActivity } from '@/data/githubActivity';
+import type { GitLabActivityData } from '@/data/gitlabActivityTypes';
 
 // Import images
 import ongoing1 from '@/assets/ongoing1.png';
@@ -32,24 +36,62 @@ import jvp1 from '@/assets/jvp1.jpg';
 import design1 from '@/assets/design1.png';
 import design2 from '@/assets/design2.png';
 import design3 from '@/assets/design3.png';
+import mindlinkanalyzer1 from '@/assets/mindlinkanalyzer1.png';
+import mindlinkanalyzer2 from '@/assets/mindlinkanalyzer2.png';
+import mindlinkanalyzer3 from '@/assets/mindlinkanalyzer3.png';
+import rag1 from '@/assets/rag1.png';
+import rag2 from '@/assets/rag2.png';
+import rag3 from '@/assets/rag3.png';
 
-// Ongoing project (appears first)
-const ongoingProject = {
-  title: "Neuroprofiling Platform",
-  description: "Developed software components with emphasis on validation, documentation and traceability across multiple AI-driven healthcare-related modules. Collaborated with product, data and engineering teams to ensure structured development pipelines.",
-  highlights: [
-    "Consumer Hub - Neuroadaptive interaction system linking EEG signals with emotion-driven content generation",
-    "Neuroprofiling - Python pipelines for EEG acquisition, calibration and feature extraction with multilayered proprietary algorithms",
-  ],
-  technologies: ["Python", "NumPy", "Scikit-learn", "Signal-Processing", "TensorFlow", "React Native",],
-  type: "Ongoing",
-  typeIcon: BriefcaseIcon,
-  date: "Present",
-  location: "Mindspeller, Belgium",
-  images: [ongoing1, ongoing2, ongoing3, ongoing4],
-};
+const ongoingProjects = [
+  {
+    title: "MindLink Analyzer",
+    description: "Built a professional BCI application for recording, monitoring and analyzing EEG signals, with real-time brain activity views, standardized cognitive tasks, personalized baselines and report generation.",
+    highlights: [
+      "Integrated EEG signal processing, feature extraction and statistical analysis for attention, cognitive state and performance patterns",
+      "Designed a neuroprofiling protocol combining validated cognitive paradigms, EMG-aware preprocessing and high-stability spectral estimation",
+      "Supported scalable psycho-analytical profiling by triangulating what users say, what they do and what their physiology suggests",
+    ],
+    technologies: ["BCI", "EEG", "Signal Processing", "Statistical Analysis", "Cognitive Tasks", "Reporting"],
+    type: "Ongoing",
+    typeIcon: BriefcaseIcon,
+    date: "Present",
+    location: "Mindspeller, Belgium",
+    images: [mindlinkanalyzer1, mindlinkanalyzer2, mindlinkanalyzer3],
+  },
+  {
+    title: "Neuroprofiling Platform",
+    description: "Developed software components with emphasis on validation, documentation and traceability across multiple AI-driven healthcare-related modules. Collaborated with product, data and engineering teams to ensure structured development pipelines.",
+    highlights: [
+      "Consumer Hub - Neuroadaptive interaction system linking EEG signals with emotion-driven content generation",
+      "Neuroprofiling - Python pipelines for EEG acquisition, calibration and feature extraction with multilayered proprietary algorithms",
+    ],
+    technologies: ["Python", "NumPy", "Scikit-learn", "Signal-Processing", "TensorFlow", "React Native",],
+    type: "Ongoing",
+    typeIcon: BriefcaseIcon,
+    date: "Present",
+    location: "Mindspeller, Belgium",
+    images: [ongoing1, ongoing2, ongoing3, ongoing4],
+  },
+];
 
 const projects = [
+  {
+    title: "DocBot Local RAG System",
+    description: "Built a local-first Retrieval-Augmented Generation app for searching, questioning and drafting from private PDF collections. The Streamlit interface syncs local documents into OpenSearch, retrieves grounded context and streams answers from configurable local or cloud LLM providers.",
+    highlights: [
+      "Implemented PDF discovery, change tracking, OCR support, text normalization, chunking and vector indexing for private document libraries",
+      "Combined keyword search with vector similarity in OpenSearch for hybrid retrieval over indexed document chunks",
+      "Created a Document Studio workflow that ranks CV-tagged files against job descriptions and generates tailored drafts from traceable source documents",
+      "Kept provider settings, API keys and chat history machine-local through ignored runtime configuration and SQLite state",
+    ],
+    technologies: ["Python", "Streamlit", "OpenSearch", "RAG", "Sentence Transformers", "Ollama"],
+    type: "AI Application",
+    typeIcon: BriefcaseIcon,
+    date: "2026",
+    location: "Personal Project",
+    images: [rag1, rag2, rag3],
+  },
   {
     title: "GenAI Market Research Tools",
     description: "Designed and deployed GenAI-powered market research tools for data analysis and insights generation as the sole developer and admin for AWS, GitLab and Google Cloud in a startup. ",
@@ -127,6 +169,216 @@ const projects = [
   },
 ];
 
+const monthFormatter = new Intl.DateTimeFormat('en', { month: 'short' });
+const readableDateFormatter = new Intl.DateTimeFormat('en', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
+
+type ActivityTheme = 'emerald' | 'sky';
+
+function getCommitLevel(count: number, maxCount: number, theme: ActivityTheme) {
+  if (count === 0) return 'bg-white/5 border-white/10';
+
+  const ratio = maxCount > 0 ? count / maxCount : 0;
+
+  if (theme === 'sky') {
+    if (ratio >= 0.75) return 'bg-sky-300 border-sky-200/80 shadow-[0_0_10px_rgba(125,211,252,0.45)]';
+    if (ratio >= 0.5) return 'bg-sky-400/80 border-sky-300/70';
+    if (ratio >= 0.25) return 'bg-sky-500/55 border-sky-400/60';
+    return 'bg-sky-600/30 border-sky-500/40';
+  }
+
+  if (ratio >= 0.75) return 'bg-emerald-300 border-emerald-200/80 shadow-[0_0_10px_rgba(110,231,183,0.45)]';
+  if (ratio >= 0.5) return 'bg-emerald-400/80 border-emerald-300/70';
+  if (ratio >= 0.25) return 'bg-emerald-500/55 border-emerald-400/60';
+  return 'bg-emerald-600/30 border-emerald-500/40';
+}
+
+function buildHeatmapDays(dailyCommits: { date: string; count: number }[], activity: GitLabActivityData) {
+  const countsByDate = new Map(dailyCommits.map((day) => [day.date, day.count]));
+  const end = activity.until ? new Date(activity.until) : new Date();
+  const start = activity.since ? new Date(activity.since) : new Date(end);
+
+  start.setUTCHours(0, 0, 0, 0);
+  end.setUTCHours(0, 0, 0, 0);
+
+  const firstDay = new Date(start);
+  firstDay.setUTCDate(firstDay.getUTCDate() - firstDay.getUTCDay());
+
+  const weeks: { date: string; count: number; isInRange: boolean; month: string }[][] = [];
+  const cursor = new Date(firstDay);
+
+  while (cursor <= end || cursor.getUTCDay() !== 0) {
+    const weekIndex = weeks.length - 1;
+    const date = cursor.toISOString().slice(0, 10);
+
+    if (cursor.getUTCDay() === 0) {
+      weeks.push([]);
+    }
+
+    weeks[weekIndex + (cursor.getUTCDay() === 0 ? 1 : 0)].push({
+      date,
+      count: countsByDate.get(date) || 0,
+      isInRange: cursor >= start && cursor <= end,
+      month: cursor.getUTCDate() <= 7 ? monthFormatter.format(cursor) : '',
+    });
+
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
+  }
+
+  return weeks;
+}
+
+function aggregateProjectActivity(activity: GitLabActivityData) {
+  const totalsByDate = new Map<string, number>();
+  let totalCommits = 0;
+
+  for (const project of activity.projects) {
+    totalCommits += project.totalCommits;
+
+    for (const day of project.dailyCommits) {
+      totalsByDate.set(day.date, (totalsByDate.get(day.date) || 0) + day.count);
+    }
+  }
+
+  const dailyCommits = [...totalsByDate.entries()]
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([date, count]) => ({ date, count }));
+
+  return {
+    totalCommits,
+    activeDays: dailyCommits.length,
+    dailyCommits,
+    projectCount: activity.projects.length,
+    topProjects: [...activity.projects]
+      .sort((a, b) => b.totalCommits - a.totalCommits)
+      .slice(0, 5),
+  };
+}
+
+function CommitHeatmap({
+  activity,
+  platform,
+  context,
+  theme,
+}: {
+  activity: GitLabActivityData;
+  platform: 'GitLab' | 'GitHub';
+  context: string;
+  theme: ActivityTheme;
+}) {
+  const aggregate = aggregateProjectActivity(activity);
+  const hasActivity = aggregate.totalCommits > 0;
+  const dateRange = activity.since && activity.until
+    ? `${readableDateFormatter.format(new Date(activity.since))} - ${readableDateFormatter.format(new Date(activity.until))}`
+    : `Generate ${platform} activity to populate this view`;
+  const weeks = buildHeatmapDays(aggregate.dailyCommits, activity);
+  const maxCount = Math.max(...aggregate.dailyCommits.map((day) => day.count), 1);
+  const accentText = theme === 'sky' ? 'text-sky-300' : 'text-emerald-300';
+
+  return (
+    <div className="mb-10 sm:mb-14 rounded-xl border border-white/15 bg-black/35 backdrop-blur-md overflow-hidden">
+      <div className="flex flex-col gap-4 border-b border-white/10 p-4 sm:p-5 md:flex-row md:items-end md:justify-between">
+        <div>
+          <div className={cn('mb-2 flex items-center gap-2', accentText)}>
+            <Activity className="h-4 w-4" />
+            <span className="text-[10px] font-semibold uppercase tracking-wider">{platform} Commit Activity</span>
+          </div>
+          <h3 className="text-base sm:text-lg font-semibold text-white">Combined commit frequency</h3>
+          <p className="mt-1 text-xs sm:text-sm text-gray-400">{context}</p>
+          <p className="mt-1 text-[11px] sm:text-xs text-gray-500">{dateRange}</p>
+        </div>
+        <div className="flex items-center gap-2 text-[10px] text-gray-400">
+          <span>Less</span>
+          {[0, 1, 2, 3, 4].map((level) => (
+            <span
+              key={level}
+              className={cn(
+                'h-3 w-3 rounded-sm border',
+                getCommitLevel(level, 4, theme)
+              )}
+            />
+          ))}
+          <span>More</span>
+        </div>
+      </div>
+
+      {hasActivity ? (
+        <div className="p-4 sm:p-5">
+          <div className="mb-4 grid gap-3 sm:grid-cols-3">
+            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+              <p className="text-[10px] uppercase tracking-wider text-gray-500">Authored commits</p>
+              <p className="mt-1 text-2xl font-semibold text-white">{aggregate.totalCommits.toLocaleString()}</p>
+            </div>
+            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+              <p className="text-[10px] uppercase tracking-wider text-gray-500">Active days</p>
+              <p className="mt-1 text-2xl font-semibold text-white">{aggregate.activeDays.toLocaleString()}</p>
+            </div>
+            <div className="rounded-lg border border-white/10 bg-white/[0.03] p-3">
+              <p className="text-[10px] uppercase tracking-wider text-gray-500">Repos included</p>
+              <p className="mt-1 text-2xl font-semibold text-white">{aggregate.projectCount.toLocaleString()}</p>
+            </div>
+          </div>
+
+          <div className="overflow-x-auto pb-1">
+            <div className="min-w-[720px]">
+              <div className="mb-1 grid grid-flow-col auto-cols-[13px] gap-1 pl-7">
+                {weeks.map((week, index) => (
+                  <span key={`${week[0]?.date}-${index}`} className="h-4 text-[9px] text-gray-500">
+                    {week.find((day) => day.month)?.month}
+                  </span>
+                ))}
+              </div>
+              <div className="flex gap-2">
+                <div className="grid grid-rows-7 gap-1 pt-0.5 text-[9px] text-gray-500">
+                  <span />
+                  <span>Mon</span>
+                  <span />
+                  <span>Wed</span>
+                  <span />
+                  <span>Fri</span>
+                  <span />
+                </div>
+                <div className="grid grid-flow-col auto-cols-[13px] grid-rows-7 gap-1">
+                  {weeks.flat().map((day) => (
+                    <span
+                      key={day.date}
+                      title={`${day.count} commits on ${day.date}`}
+                      className={cn(
+                        'h-3 w-3 rounded-sm border',
+                        day.isInRange ? getCommitLevel(day.count, maxCount, theme) : 'bg-transparent border-transparent'
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            {aggregate.topProjects.map((project) => (
+              <span
+                key={project.id}
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-[10px] text-gray-300"
+              >
+                <GitCommitHorizontal className="h-3 w-3" />
+                <span>{project.name}</span>
+                <span className="text-gray-500">{project.totalCommits.toLocaleString()}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="p-5 text-sm text-gray-400">
+          No {platform} activity has been generated yet.
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Projects() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
@@ -158,6 +410,19 @@ export default function Projects() {
             A selection of my work spanning healthcare technology, medical devices, and software development.
           </p>
         </div>
+
+        <CommitHeatmap
+          activity={gitlabActivity}
+          platform="GitLab"
+          context="Contributions to Mindspeller projects."
+          theme="emerald"
+        />
+        <CommitHeatmap
+          activity={githubActivity}
+          platform="GitHub"
+          context="Personal project activity."
+          theme="sky"
+        />
 
         <ContainerScroll className="min-h-[300vh] py-8 sm:py-12 space-y-8 sm:space-y-10">
           {/* Education & Experience - Special Card (first) */}
@@ -254,14 +519,20 @@ export default function Projects() {
             </div>
           </CardSticky>
 
-          {/* Ongoing Project - Special Card (second) */}
+          {/* Ongoing Projects */}
+          {ongoingProjects.map((ongoingProject, index) => {
+            const cardIndex = index + 1;
+            const isExpanded = expandedId === cardIndex;
+
+            return (
           <CardSticky
-            index={1}
+            key={ongoingProject.title}
+            index={cardIndex}
             className={cn(
               "w-full overflow-hidden rounded-xl sm:rounded-2xl border-2 border-white/30 bg-black/40 backdrop-blur-md shadow-xl mb-6 sm:mb-8 transition-all duration-500 ease-in-out",
-              expandedId === 1 ? "h-[70vh] z-50" : ""
+              isExpanded ? "h-[70vh] z-50" : ""
             )}
-            style={{ zIndex: expandedId === 1 ? 50 : 1 }}
+            style={{ zIndex: isExpanded ? 50 : cardIndex }}
             incrementY={40}
             incrementZ={5}
           >
@@ -269,7 +540,7 @@ export default function Projects() {
               {/* Content Side */}
               <div className={cn(
                 "p-4 sm:p-6 md:p-8 w-full md:w-1/2 flex flex-col justify-between relative z-10 bg-black/20 transition-opacity duration-300",
-                expandedId === 1 ? "opacity-0 pointer-events-none" : "opacity-100"
+                isExpanded ? "opacity-0 pointer-events-none" : "opacity-100"
               )}>
                 <div>
                   <div className="flex items-center justify-between mb-3 sm:mb-4 flex-wrap gap-2">
@@ -321,7 +592,7 @@ export default function Projects() {
               {/* Image Side */}
               <div className={cn(
                 "relative overflow-hidden group transition-all duration-500 ease-in-out",
-                expandedId === 0 ? "absolute inset-0 w-full h-full z-20" : "w-full md:w-1/2 h-40 sm:h-48 md:h-auto"
+                isExpanded ? "absolute inset-0 w-full h-full z-20" : "w-full md:w-1/2 h-40 sm:h-48 md:h-auto"
               )}>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10 md:hidden" />
                 <ImageCarousel 
@@ -329,13 +600,13 @@ export default function Projects() {
                   alt={ongoingProject.title}
                   className="w-full h-full"
                   interval={4000}
-                  isExpanded={expandedId === 1}
-                  onToggleExpand={() => setExpandedId(expandedId === 1 ? null : 1)}
+                  isExpanded={isExpanded}
+                  onToggleExpand={() => setExpandedId(isExpanded ? null : cardIndex)}
                 />
                 {/* Prominent indicator for images */}
                 <div className={cn(
                   "absolute bottom-3 sm:bottom-4 right-3 sm:right-4 z-20 bg-black/60 backdrop-blur-sm px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-green-500/30 flex items-center gap-1.5 sm:gap-2 transition-opacity duration-300",
-                  expandedId === 0 ? "opacity-0 pointer-events-none" : "opacity-100"
+                  isExpanded ? "opacity-0 pointer-events-none" : "opacity-100"
                 )}>
                   <span className="w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full bg-green-500 animate-pulse" />
                   <span className="text-[10px] sm:text-xs font-medium text-white/90">Live Project</span>
@@ -343,21 +614,24 @@ export default function Projects() {
               </div>
             </div>
           </CardSticky>
+            );
+          })}
 
           {/* Regular Projects */}
           {projects.map((project, index) => {
             const TypeIcon = project.typeIcon;
-            const isExpanded = expandedId === index + 2; // shifted by 2 due to two special cards
+            const cardIndex = index + ongoingProjects.length + 1;
+            const isExpanded = expandedId === cardIndex;
             
             return (
               <CardSticky
                 key={index}
-                index={index + 2}
+                index={cardIndex}
                 className={cn(
                   "w-full overflow-hidden rounded-xl sm:rounded-2xl border-2 border-white/30 bg-black/40 backdrop-blur-md shadow-xl transition-all duration-500 ease-in-out",
                   isExpanded ? "h-[70vh] z-50" : ""
                 )}
-                style={{ zIndex: isExpanded ? 50 : index + 2 }}
+                style={{ zIndex: isExpanded ? 50 : cardIndex }}
                 incrementY={40}
                 incrementZ={5}
               >
@@ -426,7 +700,7 @@ export default function Projects() {
                       className="w-full h-full"
                       interval={3000}
                       isExpanded={isExpanded}
-                      onToggleExpand={() => setExpandedId(isExpanded ? null : index + 2)}
+                      onToggleExpand={() => setExpandedId(isExpanded ? null : cardIndex)}
                     />
                     {/* Prominent indicator for images */}
                     <div className={cn(

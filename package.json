@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "generate:gitlab-activity": "node scripts/generate-gitlab-activity.mjs",
+    "generate:github-activity": "node scripts/generate-github-activity.mjs",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
