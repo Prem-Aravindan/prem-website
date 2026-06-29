@@ -7,6 +7,7 @@ import {
   MonitorPlay,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { skillLogoByName } from '@/data/skillLogos';
 
 import edu2 from '@/assets/edu2.png';
 import mindlinkanalyzer1 from '@/assets/mindlinkanalyzer1.png';
@@ -37,6 +38,7 @@ type PortfolioSlide = {
   subtitle: string;
   focus: string[];
   tags: string[];
+  skills: string[];
   points: string[];
   takeaway: string;
   images: string[];
@@ -52,6 +54,7 @@ const slides: PortfolioSlide[] = [
     subtitle: 'Healthcare data | full-stack software | bounded AI',
     focus: ['Research to application', 'Workflow builder', 'Explainable AI'],
     tags: [],
+    skills: [],
     points: [
       'Biomedical engineering foundation',
       'Full-stack product ownership',
@@ -68,6 +71,7 @@ const slides: PortfolioSlide[] = [
     subtitle: 'Prototype thinking before product thinking',
     focus: ['Patient impact', 'Prototype scaling', 'Technical upskilling'],
     tags: [],
+    skills: ['MATLAB', 'Python', 'Unity', 'Blender', 'C#'],
     points: [
       'Professor-led research direction',
       'Bachelor POC to startup prototype',
@@ -85,6 +89,7 @@ const slides: PortfolioSlide[] = [
     subtitle: 'From client tickets to workflow ownership',
     focus: ['Production systems', 'Client workflows', 'Ownership growth'],
     tags: [],
+    skills: ['Python', 'TypeScript','Vue.js', 'TensorFlow', 'AWS', 'Git'],
     points: [
       'Live tickets from day one',
       'Learned stack while delivering',
@@ -103,6 +108,7 @@ const slides: PortfolioSlide[] = [
     subtitle: 'EEG | semantic responses | bounded AI reports',
     focus: ['Real users', 'Live traffic', 'Explainable AI'],
     tags: [],
+    skills: ['Python', 'Vue.js', 'React', 'AWS', 'Git'],
     points: [
       'B2B to B2C product shift',
       'Consumer-grade EEG constraints',
@@ -123,6 +129,7 @@ const slides: PortfolioSlide[] = [
     subtitle: 'From document assistant to MDR workflow thinking',
     focus: ['Grounded retrieval', 'Source traceability', 'Human review'],
     tags: [],
+    skills: ['Python', 'Opensearch', 'Streamlit', 'Docker', 'Local LLMs'],
     points: [
       'PDF ingestion',
       'OCR + chunking',
@@ -138,11 +145,12 @@ const slides: PortfolioSlide[] = [
     accent: 'from-amber-300 to-sky-300',
   },
   {
-    kicker: 'VITO Fit',
+    kicker: 'Role Fit',
     title: 'What my portfolio shows VITO',
-    subtitle: 'Translate | build | constrain | review',
+    subtitle: 'Translate | Build | Validate | Deploy',
     focus: ['TRL7 mindset', 'Healthcare AI', 'Regulatory workflow'],
     tags: [],
+    skills: ['Research','Backend', 'Frontend', 'DevOps', 'Explainable AI', 'Deployment to end users'],
     points: [
       'Unclear idea to working workflow',
       'Data to structure to interpretation',
@@ -339,6 +347,28 @@ export default function PortfolioDeck() {
                     ))}
                   </div>
                 )}
+                <div className="flex flex-wrap gap-2">
+                  {slide.skills.map((skill) => {
+                    const logo = skillLogoByName.get(skill);
+
+                    return (
+                      <span
+                        key={skill}
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[0.06] px-2.5 py-1 text-xs font-medium text-gray-200"
+                      >
+                        {logo && (
+                          <img
+                            src={logo.src}
+                            alt=""
+                            className="h-4 w-4 shrink-0 object-contain"
+                            aria-hidden="true"
+                          />
+                        )}
+                        {skill}
+                      </span>
+                    );
+                  })}
+                </div>
                 <div className="rounded-lg border border-white/12 bg-white/[0.04] p-4">
                   <p className="text-sm font-medium leading-6 text-gray-100">
                     {slide.takeaway}
@@ -451,4 +481,7 @@ export default function PortfolioDeck() {
     </section>
   );
 }
+
+
+
 
