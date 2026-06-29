@@ -75,3 +75,254 @@ html {
     background-position: 0% -1000%;
   }
 }
+
+/* Resolution-adaptive sizing for the fullscreen portfolio deck. */
+.portfolio-deck--presenting .deck-slide-copy {
+  justify-content: flex-start;
+  gap: clamp(0.75rem, 1.35vmin, 1.5rem);
+  padding: clamp(1.5rem, 3.3vmin, 3.25rem);
+  scrollbar-width: thin;
+}
+
+.portfolio-deck--presenting .deck-copy-main {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: clamp(0.85rem, 1.55vmin, 1.55rem);
+}
+
+.portfolio-deck--presenting .deck-meta {
+  font-size: clamp(0.78rem, 0.95vmin, 0.95rem);
+}
+
+.portfolio-deck--presenting .deck-heading {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.55rem, 0.95vmin, 0.95rem);
+}
+
+.portfolio-deck--presenting .deck-title {
+  max-width: min(100%, 25ch);
+  font-size: clamp(2.15rem, 4.35vmin, 4.45rem);
+  line-height: 1.05;
+}
+
+.portfolio-deck--presenting .deck-subtitle {
+  max-width: min(100%, 42ch);
+  font-size: clamp(0.95rem, 1.65vmin, 1.55rem);
+  line-height: 1.25;
+}
+
+.portfolio-deck--presenting .deck-focus-list,
+.portfolio-deck--presenting .deck-skills {
+  gap: clamp(0.4rem, 0.65vmin, 0.75rem);
+}
+
+.portfolio-deck--presenting .deck-chip {
+  padding: clamp(0.32rem, 0.55vmin, 0.55rem) clamp(0.65rem, 0.95vmin, 0.95rem);
+  font-size: clamp(0.75rem, 0.95vmin, 0.95rem);
+}
+
+.portfolio-deck--presenting .deck-points-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.55rem, 0.9vmin, 0.95rem);
+}
+
+.portfolio-deck--presenting .deck-key-label {
+  font-size: clamp(0.75rem, 0.95vmin, 0.95rem);
+}
+
+.portfolio-deck--presenting .deck-points {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.45rem, 0.95vmin, 1rem);
+  font-size: clamp(0.95rem, 1.5vmin, 1.38rem);
+  line-height: 1.22;
+}
+
+.portfolio-deck--presenting .deck-points--dense {
+  gap: clamp(0.3rem, 0.65vmin, 0.6rem);
+  font-size: clamp(0.82rem, 1.15vmin, 1rem);
+  line-height: 1.2;
+}
+
+.portfolio-deck--presenting .deck-point {
+  grid-template-columns: clamp(0.75rem, 1.4vmin, 1.25rem) minmax(0, 1fr);
+  gap: clamp(0.45rem, 0.8vmin, 0.8rem);
+}
+
+.portfolio-deck--presenting .deck-dot {
+  width: clamp(0.35rem, 0.55vmin, 0.55rem);
+  height: clamp(0.35rem, 0.55vmin, 0.55rem);
+  margin-top: 0.55em;
+}
+
+.portfolio-deck--presenting .deck-lower {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.45rem, 0.85vmin, 0.85rem);
+  margin-top: clamp(0.45rem, 1vmin, 1rem);
+}
+
+.portfolio-deck--presenting .deck-skill {
+  padding: clamp(0.25rem, 0.45vmin, 0.45rem) clamp(0.5rem, 0.8vmin, 0.8rem);
+  font-size: clamp(0.68rem, 0.85vmin, 0.85rem);
+}
+
+.portfolio-deck--presenting .deck-skill-logo {
+  width: clamp(0.85rem, 1.2vmin, 1.1rem);
+  height: clamp(0.85rem, 1.2vmin, 1.1rem);
+}
+
+.portfolio-deck--presenting .deck-takeaway {
+  padding: clamp(0.55rem, 0.9vmin, 0.9rem);
+}
+
+.portfolio-deck--presenting .deck-takeaway-text {
+  font-size: clamp(0.78rem, 0.95vmin, 0.95rem);
+  line-height: 1.25;
+}
+
+@media (min-width: 1800px) and (min-height: 950px) {
+  .portfolio-deck--presenting .deck-slide-copy {
+    padding: clamp(2.5rem, 4.4vmin, 5rem);
+  }
+
+  .portfolio-deck--presenting .deck-copy-main {
+    gap: clamp(1.25rem, 2.25vmin, 2.6rem);
+  }
+
+  .portfolio-deck--presenting .deck-meta {
+    font-size: clamp(0.95rem, 1.1vmin, 1.15rem);
+  }
+
+  .portfolio-deck--presenting .deck-heading {
+    gap: clamp(0.85rem, 1.25vmin, 1.35rem);
+  }
+
+  .portfolio-deck--presenting .deck-title {
+    max-width: min(100%, 30ch);
+    font-size: clamp(3.9rem, 5.75vmin, 6.6rem);
+  }
+
+  .portfolio-deck--presenting .deck-subtitle {
+    font-size: clamp(1.55rem, 2.25vmin, 2.35rem);
+  }
+
+  .portfolio-deck--presenting .deck-focus-list,
+  .portfolio-deck--presenting .deck-skills {
+    gap: clamp(0.65rem, 0.9vmin, 1rem);
+  }
+
+  .portfolio-deck--presenting .deck-chip {
+    padding: clamp(0.45rem, 0.7vmin, 0.8rem) clamp(0.9rem, 1.15vmin, 1.3rem);
+    font-size: clamp(1rem, 1.2vmin, 1.25rem);
+  }
+
+  .portfolio-deck--presenting .deck-points-block {
+    gap: clamp(0.8rem, 1.25vmin, 1.4rem);
+  }
+
+  .portfolio-deck--presenting .deck-key-label {
+    font-size: clamp(0.95rem, 1.1vmin, 1.15rem);
+  }
+
+  .portfolio-deck--presenting .deck-points {
+    gap: clamp(0.85rem, 1.3vmin, 1.55rem);
+    font-size: clamp(1.35rem, 1.75vmin, 1.9rem);
+    line-height: 1.28;
+  }
+
+  .portfolio-deck--presenting .deck-points--dense {
+    gap: clamp(0.55rem, 0.9vmin, 1rem);
+    font-size: clamp(1.08rem, 1.35vmin, 1.4rem);
+  }
+
+  .portfolio-deck--presenting .deck-dot {
+    width: clamp(0.5rem, 0.7vmin, 0.75rem);
+    height: clamp(0.5rem, 0.7vmin, 0.75rem);
+  }
+
+  .portfolio-deck--presenting .deck-lower {
+    gap: clamp(0.75rem, 1.1vmin, 1.25rem);
+    margin-top: clamp(0.8rem, 1.4vmin, 1.6rem);
+  }
+
+  .portfolio-deck--presenting .deck-skill {
+    padding: clamp(0.35rem, 0.55vmin, 0.65rem) clamp(0.75rem, 0.95vmin, 1.1rem);
+    font-size: clamp(0.85rem, 1vmin, 1.05rem);
+  }
+
+  .portfolio-deck--presenting .deck-skill-logo {
+    width: clamp(1rem, 1.3vmin, 1.4rem);
+    height: clamp(1rem, 1.3vmin, 1.4rem);
+  }
+
+  .portfolio-deck--presenting .deck-takeaway {
+    padding: clamp(0.85rem, 1.15vmin, 1.35rem);
+  }
+
+  .portfolio-deck--presenting .deck-takeaway-text {
+    font-size: clamp(0.95rem, 1.15vmin, 1.2rem);
+    line-height: 1.35;
+  }
+}
+
+@media (max-height: 880px) {
+  .portfolio-deck--presenting .deck-slide-copy {
+    padding: clamp(1.25rem, 2.6vmin, 2.5rem);
+  }
+
+  .portfolio-deck--presenting .deck-copy-main {
+    gap: clamp(0.7rem, 1.25vmin, 1.25rem);
+  }
+
+  .portfolio-deck--presenting .deck-title {
+    max-width: min(100%, 28ch);
+    font-size: clamp(2rem, 3.55vmin, 3.35rem);
+  }
+
+  .portfolio-deck--presenting .deck-subtitle {
+    font-size: clamp(0.9rem, 1.3vmin, 1.15rem);
+  }
+
+  .portfolio-deck--presenting .deck-points {
+    gap: clamp(0.35rem, 0.7vmin, 0.7rem);
+    font-size: clamp(0.9rem, 1.2vmin, 1.08rem);
+  }
+}
+
+@media (max-height: 760px) {
+  .portfolio-deck--presenting .deck-slide-copy {
+    gap: 0.85rem;
+    padding: clamp(1.25rem, 3vmin, 2rem);
+  }
+
+  .portfolio-deck--presenting .deck-copy-main {
+    gap: clamp(0.7rem, 1.4vmin, 1.15rem);
+  }
+
+  .portfolio-deck--presenting .deck-title {
+    font-size: clamp(2rem, 4.4vmin, 3.5rem);
+  }
+
+  .portfolio-deck--presenting .deck-subtitle {
+    font-size: clamp(0.9rem, 1.65vmin, 1.25rem);
+  }
+
+  .portfolio-deck--presenting .deck-points {
+    gap: 0.55rem;
+    font-size: clamp(0.9rem, 1.45vmin, 1.15rem);
+  }
+
+  .portfolio-deck--presenting .deck-points--dense {
+    gap: 0.35rem;
+    font-size: clamp(0.8rem, 1.25vmin, 1rem);
+  }
+
+  .portfolio-deck--presenting .deck-lower {
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+  }
+}

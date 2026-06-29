@@ -61,7 +61,7 @@ const slides: PortfolioSlide[] = [
       'AI inside controlled workflows',
       'Usable, testable, explainable systems',
     ],
-    takeaway: 'I build the workflow around the model.',
+    takeaway: 'Passion to make a real healthcare impact',
     images: [edu2, work2, proddev],
     accent: 'from-cyan-400 to-emerald-300',
   },
@@ -258,6 +258,7 @@ export default function PortfolioDeck() {
       ref={deckRef}
       className={cn(
         'py-12 sm:py-16 px-4',
+        isPresenting && 'portfolio-deck--presenting',
         isPresenting && 'fixed inset-0 z-[120] h-screen overflow-hidden bg-[#0d0f12] p-4'
       )}
     >
@@ -293,40 +294,67 @@ export default function PortfolioDeck() {
           <div className={cn('absolute inset-x-0 top-0 h-1 bg-gradient-to-r', slide.accent)} />
 
           <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
-            <div className="flex min-h-0 flex-col justify-between gap-6 overflow-hidden p-7 text-left sm:p-9 lg:p-11">
-              <div className="min-h-0 space-y-6">
-                <div className="flex flex-wrap items-center gap-3 text-sm text-gray-400">
+            <div
+              className={cn(
+                'deck-slide-copy flex min-h-0 flex-col gap-6 overflow-hidden p-7 text-left sm:p-9 lg:p-11 2xl:gap-9 2xl:p-14',
+                isPresenting ? 'overflow-y-auto' : 'justify-between'
+              )}
+            >
+              <div className="deck-copy-main min-h-0 space-y-6 2xl:space-y-8">
+                <div className="deck-meta flex flex-wrap items-center gap-3 text-sm text-gray-400 2xl:text-base">
                   <span className="font-medium text-gray-200">{slide.kicker}</span>
                   <span className="h-1 w-1 rounded-full bg-gray-600" />
                   <span>Slide {currentSlide + 1} of {slides.length}</span>
                 </div>
 
-                <div className="space-y-4">
-                  <h3 className="max-w-4xl text-3xl font-semibold leading-tight text-white sm:text-4xl xl:text-[42px]">
+                <div className="deck-heading space-y-4 2xl:space-y-5">
+                  <h3
+                    className="deck-title max-w-5xl text-3xl font-semibold leading-tight text-white sm:text-4xl xl:text-[42px] 2xl:text-5xl 2xl:leading-[1.08]"
+                  >
                     {slide.title}
                   </h3>
-                  <p className="max-w-4xl text-base leading-7 text-gray-300 sm:text-lg xl:text-xl">
+                  <p
+                    className="deck-subtitle max-w-5xl text-base leading-7 text-gray-300 sm:text-lg xl:text-xl 2xl:text-2xl 2xl:leading-9"
+                  >
                     {slide.subtitle}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-2.5">
+                <div className="deck-focus-list flex flex-wrap gap-2.5 2xl:gap-3">
                   {slide.focus.map((focus) => (
                     <span
                       key={focus}
-                      className="rounded-full border border-white/14 bg-white/[0.06] px-3 py-1.5 text-sm font-medium text-gray-100"
+                      className="deck-chip rounded-full border border-white/14 bg-white/[0.06] px-3 py-1.5 text-sm font-medium text-gray-100 2xl:px-4 2xl:py-2 2xl:text-base"
                     >
                       {focus}
                     </span>
                   ))}
                 </div>
 
-                <div className="space-y-4">
-                  <p className="text-sm font-medium text-gray-400">Key points</p>
-                  <ul className={cn(slide.points.length > 6 ? 'space-y-2.5 text-sm leading-6 sm:text-base' : 'space-y-4 text-base leading-7 sm:text-lg', 'text-gray-200')}>
+                <div className="deck-points-block space-y-4 2xl:space-y-5">
+                  <p className="deck-key-label text-sm font-medium text-gray-400 2xl:text-base">Key points</p>
+                  <ul
+                    className={cn(
+                      slide.points.length > 6
+                        ? 'space-y-2.5 text-sm leading-6 sm:text-base 2xl:space-y-3 2xl:text-lg 2xl:leading-7'
+                        : 'space-y-4 text-base leading-7 sm:text-lg 2xl:space-y-5 2xl:text-xl 2xl:leading-8',
+                      'deck-points',
+                      slide.points.length > 6 && 'deck-points--dense',
+                      'text-gray-200'
+                    )}
+                  >
                     {slide.points.map((point) => (
-                      <li key={point} className="grid grid-cols-[1rem_minmax(0,1fr)] gap-3">
-                        <span className={cn('mt-3 h-2 w-2 rounded-full bg-gradient-to-r', slide.accent)} />
+                      <li
+                        key={point}
+                        className="deck-point grid grid-cols-[1rem_minmax(0,1fr)] gap-3 2xl:grid-cols-[1.25rem_minmax(0,1fr)] 2xl:gap-4"
+                      >
+                        <span
+                          className={cn(
+                            'deck-dot',
+                            'mt-3 h-2 w-2 rounded-full bg-gradient-to-r 2xl:mt-3.5 2xl:h-2.5 2xl:w-2.5',
+                            slide.accent
+                          )}
+                        />
                         <span>{point}</span>
                       </li>
                     ))}
@@ -334,33 +362,33 @@ export default function PortfolioDeck() {
                 </div>
               </div>
 
-              <div className="shrink-0 space-y-4">
+              <div className="deck-lower shrink-0 space-y-4 2xl:space-y-5">
                 {slide.tags.length > 0 && (
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 2xl:gap-2.5">
                     {slide.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-md border border-white/10 px-2.5 py-1 text-xs text-gray-300"
+                        className="rounded-md border border-white/10 px-2.5 py-1 text-xs text-gray-300 2xl:px-3 2xl:py-1.5 2xl:text-sm"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
                 )}
-                <div className="flex flex-wrap gap-2">
+                <div className="deck-skills flex flex-wrap gap-2 2xl:gap-2.5">
                   {slide.skills.map((skill) => {
                     const logo = skillLogoByName.get(skill);
 
                     return (
                       <span
                         key={skill}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[0.06] px-2.5 py-1 text-xs font-medium text-gray-200"
+                        className="deck-skill inline-flex items-center gap-1.5 rounded-full border border-white/12 bg-white/[0.06] px-2.5 py-1 text-xs font-medium text-gray-200 2xl:gap-2 2xl:px-3 2xl:py-1.5 2xl:text-sm"
                       >
                         {logo && (
                           <img
                             src={logo.src}
                             alt=""
-                            className="h-4 w-4 shrink-0 object-contain"
+                            className="deck-skill-logo h-4 w-4 shrink-0 object-contain 2xl:h-5 2xl:w-5"
                             aria-hidden="true"
                           />
                         )}
@@ -369,8 +397,8 @@ export default function PortfolioDeck() {
                     );
                   })}
                 </div>
-                <div className="rounded-lg border border-white/12 bg-white/[0.04] p-4">
-                  <p className="text-sm font-medium leading-6 text-gray-100">
+                <div className="deck-takeaway rounded-lg border border-white/12 bg-white/[0.04] p-4 2xl:p-5">
+                  <p className="deck-takeaway-text text-sm font-medium leading-6 text-gray-100 2xl:text-base 2xl:leading-7">
                     {slide.takeaway}
                   </p>
                 </div>

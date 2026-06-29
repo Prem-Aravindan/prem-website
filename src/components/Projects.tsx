@@ -429,9 +429,9 @@ export default function Projects() {
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2">
             Experience
           </h2>
-          <p className="text-gray-400 text-xs sm:text-sm max-w-lg mx-auto px-2">
+          {/* <p className="text-gray-400 text-xs sm:text-sm max-w-lg mx-auto px-2">
             A selection of my work spanning healthcare technology, medical devices, and software development.
-          </p>
+          </p> */}
         </div>
 
         <CommitHeatmap
