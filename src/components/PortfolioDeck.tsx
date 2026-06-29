@@ -27,7 +27,7 @@ import rag3 from '@/assets/rag3.png';
 import masterthesis1 from '@/assets/masterthesis1.png';
 import masterthesis2 from '@/assets/masterthesis2.png';
 import bachelorthesis1 from '@/assets/bachelorthesis1.png';
-import bachelorthesis2 from '@/assets/bachelorthesis2.png';
+import bachelorthesis4 from '@/assets/bachelorthesis4.png';
 import ppg1 from '@/assets/ppg1.png';
 import hypertension1 from '@/assets/hypertension1.png';
 import work2 from '@/assets/work2.png';
@@ -80,7 +80,7 @@ const slides: PortfolioSlide[] = [
       'AR tele-proctoring for surgery',
     ],
     takeaway: 'Impact needs more than a good idea.',
-    images: [ppg1, hypertension1, bachelorthesis1, bachelorthesis2, masterthesis1, masterthesis2],
+    images: [ppg1, hypertension1, bachelorthesis1, bachelorthesis4, masterthesis1, masterthesis2],
     accent: 'from-rose-300 to-orange-200',
   },
   {
