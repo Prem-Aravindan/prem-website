@@ -140,7 +140,7 @@ const slides: PortfolioSlide[] = [
       'Gap analysis',
       'Audit trail + review',
     ],
-    takeaway: 'RAG is the knowledge layer, not the product.',
+    takeaway: 'Upskilling landed in a personal assistant.',
     images: [rag1, rag2, rag3],
     accent: 'from-amber-300 to-sky-300',
   },
@@ -179,6 +179,7 @@ export default function PortfolioDeck() {
   const deckRef = useRef<HTMLElement>(null);
   const slide = slides[currentSlide];
   const hasManualImageSelection = manualImageSlides.has(currentSlide);
+  const isDenseSlide = slide.points.length >= 6 || slide.skills.length >= 5;
 
   const goToSlide = useCallback((nextIndex: number) => {
     const boundedIndex = (nextIndex + slides.length) % slides.length;
@@ -297,6 +298,7 @@ export default function PortfolioDeck() {
             <div
               className={cn(
                 'deck-slide-copy flex min-h-0 flex-col gap-6 overflow-hidden p-7 text-left sm:p-9 lg:p-11 2xl:gap-9 2xl:p-14',
+                isDenseSlide && 'deck-slide--dense',
                 isPresenting ? 'overflow-y-auto' : 'justify-between'
               )}
             >
