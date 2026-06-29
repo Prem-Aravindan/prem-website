@@ -13,6 +13,7 @@ import ongoing1 from '@/assets/ongoing1.png';
 import ongoing2 from '@/assets/ongoing2.png';
 import ongoing3 from '@/assets/ongoing3.png';
 import ongoing4 from '@/assets/ongoing4.png';
+import ongoing5 from '@/assets/ongoing5.png';
 import fulllstack1 from '@/assets/fulllstack1.png';
 import fulllstack2 from '@/assets/fulllstack2.png';
 import fulllstack3 from '@/assets/fulllstack3.png';
@@ -87,7 +88,7 @@ const ongoingProjects = [
     typeIcon: BriefcaseIcon,
     date: "Present",
     location: "Mindspeller, Belgium",
-    images: [ongoing1, ongoing2, ongoing3, ongoing4],
+    images: [ongoing5, ongoing1, ongoing2, ongoing3, ongoing4],
   },
 ];
 

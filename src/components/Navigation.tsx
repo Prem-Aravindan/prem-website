@@ -5,6 +5,7 @@ export default function Navigation() {
     { name: 'Home', url: '#hero' },
     { name: 'About', url: '#about' },
     { name: 'Skills', url: '#skills' },
+    { name: 'Deck', url: '#portfolio-deck' },
     { name: 'Projects', url: '#projects' },
     { name: 'Publications', url: '#publications' },
     { name: 'Contact', url: '#contact' },
