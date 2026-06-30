@@ -48,7 +48,7 @@ import screener1 from '@/assets/screener1.png';
 const ongoingProjects = [
   {
     title: "Mindscreener",
-    description: "Developing an academic research system for early Alzheimer's disease detection using multi-channel EEG markers associated with amyloid and tau positivity in the temporal region, measured during 40 Hz visual stimulation.",
+    description: "Assisting in the development of an academic research system for early Alzheimer's disease detection using multi-channel EEG markers.",
     highlights: [
       "Investigates EEG-based biomarkers linked to amyloid and tau positivity for early-stage Alzheimer's screening",
       "Focuses on temporal-region responses under 40 Hz visual stimulation using multi-channel EEG recordings",
@@ -58,7 +58,7 @@ const ongoingProjects = [
     type: "Academic Research",
     typeIcon: AcademicCapIcon,
     date: "Present",
-    location: "Mindspeller, Belgium",
+    location: "KU Leuven, Belgium",
     images: [screener1],
   },
   {
